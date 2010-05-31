@@ -1,0 +1,19 @@
+Metadata-Version: 1.0
+Name: pySPARROW
+Version: 0.4
+Summary: An ojbect-oriented Python package for calculating water quality loadings using the SPARROW model
+Home-page: http://code.google.com/p/pysparrow/
+Author: Jon Goodall and John Fay
+Author-email: goodall@engr.sc.edu
+License: UNKNOWN
+Description: 
+        pySPARROW is an API for performing water quality modeling.  It is based on the USGS SPARROW model
+        and implements the prediction portion of SPARROW in an Object-Orieted, Open Source Programming
+        language. It can be used to create water quality analysis scripts that address specific places
+        and questions.
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Intended Audience :: Developers
+Classifier: Development Status :: Beta
