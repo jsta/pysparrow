@@ -56,3 +56,6 @@ pip install --upgrade -e .
 Original Authors: J. Goodall, D. Bollinger, Jr., J. Fay
 
 Original Release Date: May 23, 2010
+
+See [https://doi.org/10.1016/j.envsoft.2010.04.007](10.1016/j.envsoft.2010.04.007
+)
