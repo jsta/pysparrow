@@ -77,7 +77,7 @@ def csv_2_hdf(csv_file, h5_file):
         LvskWst_rate = FloatCol()   # kg N/ha pasture in catchment
         SoilPerm = FloatCol()       # avg soil permeability (cm/hr)
         DrainDnst = FloatCol()      # km stream/sq km catchment area
-        AREAWTMAT = FloatCol()      # area wtd mean temperature (°F)
+        AREAWTMAT = FloatCol()      # area wtd mean temperature (ï¿½F)
         MAFlowU = FloatCol()        # mean annual flow (cfs)
         MAVelU = FloatCol()         # mean annual velocity (ft/s)
         LengthKm = FloatCol()       # total stream length in catchment
@@ -88,7 +88,7 @@ def csv_2_hdf(csv_file, h5_file):
     # required files (assumes this csv file is in current working directory)
     conn_string = 'DRIVER={Microsoft Text Driver (*.txt; *.csv)};;DBQ=' + os.getcwd()
        
-    conn = odbc.odbc(conn_string)
+    conn = pyodbc.connect(conn_string)
     cur = conn.cursor()
    
     # cursor is ordered in desc order by version to ensure latest version
@@ -102,7 +102,7 @@ def csv_2_hdf(csv_file, h5_file):
     rec = cur.fetchone()
 
     # Open a file in "w"rite mode
-    h5file = openFile(h5_file, mode = "w", title = "data for pySPARROW")
+    h5file = File(h5_file, mode = "w", title = "data for pySPARROW")
 
     # Create a new group under "/" (root)
     group = h5file.createGroup("/", "networks", "networks")
@@ -111,7 +111,7 @@ def csv_2_hdf(csv_file, h5_file):
     table = h5file.createTable(group, "network0", Reach)
     i = 1
     while rec:
-        print str(int(rec[0])) + " " + str(i)
+        print(str(int(rec[0])) + " " + str(i))
         i = i + 1
         
         #Calculate PtSrc values from: indust. rt * indus. area (NLCD-24) + mun rt * mun area (NLCD 22-24)

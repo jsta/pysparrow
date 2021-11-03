@@ -1,7 +1,7 @@
-from database import DB
+from pySPARROW import database #.DB as DB
 from numpy import array, dot
 from math import exp, sqrt
-import utils
+from pySPARROW import utils
 
 class Reach:
     def __init__(self, Network, Record):
@@ -36,11 +36,13 @@ class Reach:
         self._Velocity = rec['MAVelU']
         self._Length = rec['LengthKm']
         self._Runoff = rec['Runoff'] #todo delete this attribute and use only method to generate runoff
-        self._ReachDecay = rec['ReachDecay']
-        self._ReservoirDecay = rec['ReservoirDecay']
-        self._IsReservoir = rec['ReservoirFlag']
-        self._IsMonitored = rec['MonitoredFlag']
-        self._MeasuredLoad = rec['MeasuredLoad']
+        # example data rows seem to be missing these columns...
+        # rec.table
+        # self._ReachDecay = rec['ReachDecay']
+        # self._ReservoirDecay = rec['ReservoirDecay']
+        # self._IsReservoir = rec['ReservoirFlag']
+        # self._IsMonitored = rec['MonitoredFlag']
+        # self._MeasuredLoad = rec['MeasuredLoad']
         self._ToComID = rec['ToComID']
     
     def get_LULC(self):

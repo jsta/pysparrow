@@ -1,9 +1,9 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-from networkx import graphviz_layout
-from pySPARROW import Network, Reach
+from networkx.drawing.nx_pydot import graphviz_layout
+from pySPARROW.network import Network
 
-workspace = "/home/user/pysparrow-read-only/examples/testing_on_sample_sparrow_dataset/"
+workspace = "examples/"
 test_reach = '5012'
 
 net = Network(workspace + 'test.h5')
@@ -14,9 +14,8 @@ id2 = 0
 #    if len(net.get_upstream_reaches(i)) > 1000: 
 #        print str(len(net.get_upstream_reaches(i))) + " " + str(i._ComID)
 
-    
 G=net._g.subgraph(net.get_upstream_reaches(net.get_reach(test_reach)))
-pos=nx.graphviz_layout(G,prog='neato',args='')
+pos=graphviz_layout(G,prog='neato')
 plt.figure(figsize=(8,8))
 lab = {}
 node_size = []

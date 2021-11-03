@@ -1,7 +1,6 @@
-from reach import Reach
-from database import DB
-import utils
-from networkx import single_source_dijkstra_path_length, dfs_preorder
+from pySPARROW import reach # import Reach
+from pySPARROW import database #.DB as DB
+from pySPARROW import utils
 from math import exp, sqrt
 import time
 

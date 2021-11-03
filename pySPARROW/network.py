@@ -1,34 +1,40 @@
+import sys
 from networkx import DiGraph, shortest_path, single_source_shortest_path, \
     dijkstra_path_length, single_source_dijkstra_path_length
-from database import DB
-from reach import Reach
-from waterbody import Waterbody
 from math import exp, sqrt
 from tables import *
-import utils
+
+sys.path.append(".")
+from pySPARROW import database #.DB as DB
+from pySPARROW import reach #.Reach as Reach
+from pySPARROW import waterbody # import Waterbody
+from pySPARROW import utils
+Reach = reach.Reach
+
 
 class Network:
     """A set of reaches composed into a graph."""
     def __init__(self, path, version = '0'):
         g = DiGraph()
         gaged_reaches = []
-        db = openFile(path, "r")
-        table = db.getNode('/', 'networks/network' + str(version))
+        db = open_file(path, "r")        
+        table = db.get_node('/', 'networks/network' + str(version))
         reaches = {}
         #read data out of file
-        for row in table:  
-            if str(row['ComID']) != '-1':
-                reaches[row['ComID']] = Reach(self, row)
+        for row in table:            
+            if row['ComID'].decode('UTF-8') != '-1':
+                reaches[row['ComID'].decode('UTF-8')] = Reach(self, row)
             else:
-                reaches[row['ComID']]  = '-1'
+                reaches[row['ComID'].decode('UTF-8')]  = '-1'
                 g.add_edge(Reach(self, row), '-1')
-            if row['MonitoredFlag'] == '1' : 
-                gaged_reaches.append(row['ComID'])
+            # example data seems to be missing this field...
+            # if row['MonitoredFlag'] == '1' : 
+            #     gaged_reaches.append(row['ComID'])
         db.close()
         #make network
         for comid in reaches.keys():
             to_comID = reaches[comid]._ToComID
-            if to_comID != '-1':
+            if to_comID.decode('UTF-8') != '-1':
                 g.add_edge(reaches[comid], reaches[to_comID])
             else:
                 g.add_edge(reaches[comid], -1)
@@ -48,16 +54,18 @@ class Network:
         self._g_rev = g.reverse()
         self._version = str(version)
         self._path = str(path)
+        # breakpoint()
         self._reaches = reaches
         db.close()
 
     def get_reach(self, comID):
         """Returns a reach in the network"""
+        # breakpoint()
         return self._reaches[comID]
     
     def get_waterbody(self, comID):
         """Returns a waterbody in the network."""
-        return Waterbody(self, comID)
+        return waterbody.Waterbody(self, comID)
     
     def get_upstream_reaches(self, outlet_reach, broken_at_gages=True):
         """Returns the comIDs of the upstream reaches for a given reach.  

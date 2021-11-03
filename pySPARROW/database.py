@@ -1,4 +1,4 @@
-from tables import openFile #see http://www.pytables.org
+from tables import File #see http://www.pytables.org
 
 class DB:
     def __init__(self):
@@ -11,7 +11,7 @@ class DB:
         self._filename = r"C:\user\jon\code\pySPARROW_v2\db\neuse_river_basin\data_v301.h5"
 
     def open(self, path, mode = "r"):
-        self._f = openFile(path, mode)
+        self._f = File(path, mode)
         self._mode = mode
         
     def close(self):
