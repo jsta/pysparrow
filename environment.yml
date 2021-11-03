@@ -1,0 +1,13 @@
+name: pysparrow
+channels:
+- conda-forge
+dependencies:
+        - python>3
+        - pandas        
+        - pytest
+        - yapf        
+        - pytables
+        - networkx
+        - matplotlib
+        - pyodbc
+        - pydot
