@@ -5,7 +5,10 @@ An object-oriented Python package for calculating water quality loadings using t
 ## Installation
 
 ```shell
+conda env create -f environment.yml
+conda activate pysparrow
 
+pip install --upgrade -e .
 ```
 
 ## Usage
